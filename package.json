@@ -1,6 +1,6 @@
 {
   "name": "monoflow-script-lock",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Script para bloqueio e desbloqueio de equipamentos. Não bloqueia nem desbloqueia sozinho. Precisa de outro script para mudar o estado. Compatível com Pikin IO, Monoflow IO e proximamente Teltonika",
   "settingsSchema": {},
   "license": "EULA",

@@ -11,8 +11,15 @@ messages.on('onInit', function() {
   platform.log('Lock/unlock script installed.');
 });
 
-const dummyEvent = new MonoUtils.wk.lock.LockEvent(true);
-MonoUtils.wk.event.subscribe<MonoUtils.wk.lock.LockEvent>(dummyEvent.kind, (ev) => {
+messages.on('onEvent', (event: any) => {
+  if (event?.kind === 'lock-request') {
+    const ev = event as MonoUtils.wk.lock.LockEvent;
+    const locked = ev.getData()?.lock || true;
+    platform.log('Lock/unlock (messages) script: ' + (locked ? 'Locked' : 'Unlocked'));
+  }
+})
+
+MonoUtils.wk.event.subscribe<MonoUtils.wk.lock.LockEvent>('lock-request', (ev) => {
   const locked = ev.getData()?.lock || true;
   platform.log('Lock/unlock script: ' + (locked ? 'Locked' : 'Unlocked'));
 })

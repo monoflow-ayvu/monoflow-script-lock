@@ -2,7 +2,54 @@
   "name": "monoflow-script-lock",
   "version": "0.3.0",
   "description": "Script para bloqueio e desbloqueio de equipamentos. Não bloqueia nem desbloqueia sozinho. Precisa de outro script para mudar o estado. Compatível com Pikin IO, Monoflow IO e proximamente Teltonika",
-  "settingsSchema": {},
+  "settingsSchema": {
+    "display": "form",
+    "settings": {
+      "pdf": {
+        "id": "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
+        "src": "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0"
+      }
+    },
+    "components": [
+      {
+        "label": "Objetivo",
+        "widget": "choicesjs",
+        "tooltip": "Objetivos para ativar/desativar quando bloquear/desbloquear o dispositivo.",
+        "tableView": true,
+        "multiple": true,
+        "defaultValue": [
+          "MONOFLOW_RELAY_1"
+        ],
+        "data": {
+          "values": [
+            {
+              "label": "Monoflow Relay 1",
+              "value": "MONOFLOW_RELAY_1"
+            },
+            {
+              "label": "Monoflow Relay 2",
+              "value": "MONOFLOW_RELAY_2"
+            },
+            {
+              "label": "Monoflow Buzzer",
+              "value": "MONOFLOW_BUZ_1"
+            }
+          ]
+        },
+        "key": "target",
+        "type": "select",
+        "input": true
+      },
+      {
+        "type": "button",
+        "label": "Submit",
+        "key": "submit",
+        "disableOnInvalid": true,
+        "input": true,
+        "tableView": false
+      }
+    ]
+  },
   "license": "EULA",
   "private": true,
   "scripts": {
@@ -52,7 +99,7 @@
     "webpack-cli": "4.9.2"
   },
   "dependencies": {
-    "@fermuch/monoutils": "^0.0.30",
+    "@fermuch/monoutils": "^0.0.31",
     "@fermuch/telematree": "^9.16.0",
     "cross-fetch": "3.1.5",
     "firebase": "9.6.8",

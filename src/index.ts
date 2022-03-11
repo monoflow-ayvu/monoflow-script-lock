@@ -8,6 +8,8 @@ type Config = Record<string, unknown> & {
 const conf = new MonoUtils.config.Config<Config>();
 
 function setLock(state: boolean) {
+  platform.log('Lock/unlock script: ' + (state ? 'Locked' : 'Unlocked'));
+
   let targets = conf.get("target", ['MONOFLOW_RELAY_1']);
   if (!Array.isArray(targets)) {
     targets = [targets];
@@ -26,8 +28,6 @@ messages.on('onInit', function() {
 });
 
 MonoUtils.wk.event.subscribe<MonoUtils.wk.lock.LockEvent>('lock-request', (ev) => {
-  platform.log('keys', Object.keys(ev), ev, ev.getData, ev.getData?.());
-  const locked = (ev as never as {data: {lock: boolean}}).data?.lock;
-  platform.log('Lock/unlock script: ' + (locked ? 'Locked' : 'Unlocked'));
+  const locked = ev.getData().lock;
   setLock(locked);
 })

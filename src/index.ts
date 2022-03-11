@@ -16,6 +16,8 @@ messages.on('onEvent', (event: any) => {
     const ev = event as MonoUtils.wk.lock.LockEvent;
     const locked = ev.getData()?.lock || true;
     platform.log('Lock/unlock (messages) script: ' + (locked ? 'Locked' : 'Unlocked'));
+  } else {
+    platform.log('received message onEvent: ' + JSON.stringify(event));
   }
 })
 

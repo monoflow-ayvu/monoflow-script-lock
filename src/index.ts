@@ -26,7 +26,8 @@ messages.on('onInit', function() {
 });
 
 MonoUtils.wk.event.subscribe<MonoUtils.wk.lock.LockEvent>('lock-request', (ev) => {
-  const locked = ev.getData()?.lock || true;
+  platform.log('keys', Object.keys(ev), ev);
+  const locked = (ev as never as {data: {lock: boolean}}).data?.lock;
   platform.log('Lock/unlock script: ' + (locked ? 'Locked' : 'Unlocked'));
   setLock(locked);
 })

@@ -8,10 +8,11 @@ type Config = Record<string, unknown> & {
 const conf = new MonoUtils.config.Config<Config>();
 
 messages.on('onInit', function() {
-  platform.log('script started! (I am the script)');
-  platform.log('settings:');
-  platform.log(conf.store);
-
-  const name = conf.get('nome', 'default name');
-  platform.log(`Hello, ${name}!`);
+  platform.log('Lock/unlock script installed.');
 });
+
+const dummyEvent = new MonoUtils.wk.lock.LockEvent(true);
+MonoUtils.wk.event.subscribe<MonoUtils.wk.lock.LockEvent>(dummyEvent.kind, (ev) => {
+  const locked = ev.getData()?.lock || true;
+  platform.log('Lock/unlock script: ' + (locked ? 'Locked' : 'Unlocked'));
+})

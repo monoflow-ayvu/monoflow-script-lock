@@ -1,30 +1,8 @@
 {
-  "name": "monoflow-script-env",
-  "version": "1.17.0",
-  "description": "Script padrão de todos os scripts. Template para criar um script.",
-  "settingsSchema": {
-    "display": "form",
-    "components": [
-      {
-        "label": "Nome",
-        "description": "Nome para saludar",
-        "tableView": true,
-        "key": "nome",
-        "type": "textfield",
-        "input": true,
-        "defaultValue": "User"
-      },
-      {
-        "type": "button",
-        "label": "Submit",
-        "key": "submit",
-        "disableOnInvalid": true,
-        "block": true,
-        "input": true,
-        "tableView": false
-      }
-    ]
-  },
+  "name": "monoflow-script-lock",
+  "version": "0.0.0",
+  "description": "Script para bloqueio e desbloqueio de equipamentos. Não bloqueia nem desbloqueia sozinho. Precisa de outro script para mudar o estado. Compatível com Pikin IO, Monoflow IO e proximamente Teltonika",
+  "settingsSchema": {},
   "license": "EULA",
   "private": true,
   "scripts": {

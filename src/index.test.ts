@@ -1,3 +1,4 @@
+import * as MonoUtils from '@fermuch/monoutils';
 const read = require('fs').readFileSync;
 const join = require('path').join;
 
@@ -8,34 +9,56 @@ function loadScript() {
 }
 
 describe("onInit", () => {
-  // clean listeners
   afterEach(() => {
+    // clean listeners
     messages.removeAllListeners();
   });
 
-  it('runs without errors', () => {
+  it('by default sets MONOFLOW_RELAY_1 as unlocked onInit', () => {
+    platform.log = jest.fn();
     loadScript();
+    
     messages.emit('onInit');
+
+    expect(platform.log).toHaveBeenCalledWith('Lock/unlock script: Unlocked');
+    expect(env.data['MONOFLOW_RELAY_1']).toBe(false);
+    expect(env.data['MONOFLOW_RELAY_2']).toBeUndefined();
+    expect(env.data['MONOFLOW_BUZ_1']).toBeUndefined();
   });
 
-  it('prints "Hello, default name!"', () => {
-    const log = jest.fn();
-    platform.log = log;
+  it('sets by multiple targets to unlocked onInit if configured', () => {
+    platform.log = jest.fn();
+    getSettings = () => ({
+      target: ['MONOFLOW_RELAY_1', 'MONOFLOW_RELAY_2', 'MONOFLOW_BUZ_1']
+    });
 
     loadScript();
-
     messages.emit('onInit');
-    expect(log).toHaveBeenCalledWith('Hello, default name!');
-  });
+    expect(platform.log).toHaveBeenCalledWith('Lock/unlock script: Unlocked');
+    expect(env.data['MONOFLOW_RELAY_1']).toBe(false);
+    expect(env.data['MONOFLOW_RELAY_2']).toBe(false);
+    expect(env.data['MONOFLOW_BUZ_1']).toBe(false);
+  })
 
-  it('prints "Hello, custom name!" if given config', () => {
-    const log = jest.fn();
-    platform.log = log;
-    getSettings = () => ({ name: 'custom name' });
-
+  it('reacts to lock-request event', () => {
+    platform.log = jest.fn();
+    getSettings = () => ({
+      target: ['MONOFLOW_RELAY_1']
+    });
     loadScript();
-
     messages.emit('onInit');
-    expect(log).toHaveBeenCalledWith('Hello, custom name!');
+
+    const lock = new MonoUtils.wk.lock.LockEvent(true);
+    const unlock = new MonoUtils.wk.lock.LockEvent(false);
+
+    messages.emit('onEvent', lock);
+    expect(env.data['MONOFLOW_RELAY_1']).toBe(true);
+    expect(env.data['MONOFLOW_RELAY_2']).toBeFalsy();
+    expect(env.data['MONOFLOW_BUZ_1']).toBeFalsy();
+
+    messages.emit('onEvent', unlock);
+    expect(env.data['MONOFLOW_RELAY_1']).toBe(false);
+    expect(env.data['MONOFLOW_RELAY_2']).toBeFalsy();
+    expect(env.data['MONOFLOW_BUZ_1']).toBeFalsy();
   });
 });

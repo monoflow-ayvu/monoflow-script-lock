@@ -26,20 +26,23 @@ jobs:
         env:
           CI: true
       - name: Merge PR
-        if: success()
-        uses: actions/github-script@v6
-        with:
-          # github-token: "${{ secrets.GH_KEY }}"
-          script: |
-            const pullRequest = context.payload.pull_request
-            const repository = context.repo
+        uses: ridedott/merge-me-action@v2.8.35
 
-            await github.pulls.merge({
-              merge_method: "merge",
-              owner: repository.owner,
-              pull_number: pullRequest.number,
-              repo: repository.repo,
-            })
+#       - name: Merge PR
+#         if: success()
+#         uses: actions/github-script@v5
+#         with:
+#           # github-token: "${{ secrets.GH_KEY }}"
+#           script: |
+#             const pullRequest = context.payload.pull_request
+#             const repository = context.repo
+
+#             await github.pulls.merge({
+#               merge_method: "merge",
+#               owner: repository.owner,
+#               pull_number: pullRequest.number,
+#               repo: repository.repo,
+#             })
       # - name: Reject PR
       #   if: failure()
       #   uses: peter-evans/close-pull@v1

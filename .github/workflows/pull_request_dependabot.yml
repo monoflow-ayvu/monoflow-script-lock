@@ -25,8 +25,9 @@ jobs:
           yarn test
         env:
           CI: true
-      - name: Merge PR
-        uses: ridedott/merge-me-action@v2.8.35
+      - uses: maxkomarychev/merge-pal-action@v0.5.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 #       - name: Merge PR
 #         if: success()

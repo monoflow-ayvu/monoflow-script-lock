@@ -33,6 +33,26 @@
             {
               "label": "Monoflow Buzzer",
               "value": "MONOFLOW_BUZ_1"
+            },
+            {
+              "label": "Teltonika Output 0",
+              "value": "TELTONIKA_OUTPUT_0"
+            },
+            {
+              "label": "Teltonika Output 1",
+              "value": "TELTONIKA_OUTPUT_1"
+            },
+            {
+              "label": "Teltonika Output 2",
+              "value": "TELTONIKA_OUTPUT_2"
+            },
+            {
+              "label": "Teltonika Output 3",
+              "value": "TELTONIKA_OUTPUT_3"
+            },
+            {
+              "label": "Teltonika Output 4",
+              "value": "TELTONIKA_OUTPUT_4"
             }
           ]
         },

@@ -29,7 +29,7 @@ describe("onInit", () => {
   it('sets by multiple targets to unlocked onInit if configured', () => {
     platform.log = jest.fn();
     getSettings = () => ({
-      target: ['MONOFLOW_RELAY_1', 'MONOFLOW_RELAY_2', 'MONOFLOW_BUZ_1']
+      target: ['MONOFLOW_RELAY_1', 'MONOFLOW_RELAY_2', 'MONOFLOW_BUZ_1', 'TELTONIKA_OUTPUT_3']
     });
 
     loadScript();
@@ -38,6 +38,7 @@ describe("onInit", () => {
     expect(env.data['MONOFLOW_RELAY_1']).toBe(false);
     expect(env.data['MONOFLOW_RELAY_2']).toBe(false);
     expect(env.data['MONOFLOW_BUZ_1']).toBe(false);
+    expect(env.data['TELTONIKA_OUTPUT_3']).toBe(false);
   })
 
   it('reacts to lock-request event', () => {

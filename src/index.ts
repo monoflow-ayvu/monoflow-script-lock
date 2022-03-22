@@ -1,9 +1,17 @@
 import * as MonoUtils from "@fermuch/monoutils";
-import { getBoolean } from "@fermuch/monoutils/build/types/tools/storage";
 
 // based on settingsSchema @ package.json
 type Config = Record<string, unknown> & {
-  target: ('MONOFLOW_RELAY_1' | 'MONOFLOW_RELAY_2' | 'MONOFLOW_BUZ_1')[];
+  target: (
+      'MONOFLOW_RELAY_1'
+    | 'MONOFLOW_RELAY_2'
+    | 'MONOFLOW_BUZ_1'
+    | 'TELTONIKA_OUTPUT_0'
+    | 'TELTONIKA_OUTPUT_1'
+    | 'TELTONIKA_OUTPUT_2'
+    | 'TELTONIKA_OUTPUT_3'
+    | 'TELTONIKA_OUTPUT_4'
+  )[];
 }
 const conf = new MonoUtils.config.Config<Config>();
 

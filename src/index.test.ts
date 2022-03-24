@@ -15,26 +15,22 @@ describe("onInit", () => {
   });
 
   it('by default sets MONOFLOW_RELAY_1 as unlocked onInit', () => {
-    platform.log = jest.fn();
     loadScript();
     
     messages.emit('onInit');
 
-    expect(platform.log).toHaveBeenCalledWith('Lock/unlock script: Unlocked');
     expect(env.data['MONOFLOW_RELAY_1']).toBe(false);
     expect(env.data['MONOFLOW_RELAY_2']).toBeUndefined();
     expect(env.data['MONOFLOW_BUZ_1']).toBeUndefined();
   });
 
   it('sets by multiple targets to unlocked onInit if configured', () => {
-    platform.log = jest.fn();
     getSettings = () => ({
       target: ['MONOFLOW_RELAY_1', 'MONOFLOW_RELAY_2', 'MONOFLOW_BUZ_1', 'TELTONIKA_OUTPUT_3']
     });
 
     loadScript();
     messages.emit('onInit');
-    expect(platform.log).toHaveBeenCalledWith('Lock/unlock script: Unlocked');
     expect(env.data['MONOFLOW_RELAY_1']).toBe(false);
     expect(env.data['MONOFLOW_RELAY_2']).toBe(false);
     expect(env.data['MONOFLOW_BUZ_1']).toBe(false);
@@ -42,7 +38,6 @@ describe("onInit", () => {
   })
 
   it('reacts to lock-request event', () => {
-    platform.log = jest.fn();
     getSettings = () => ({
       target: ['MONOFLOW_RELAY_1']
     });

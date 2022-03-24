@@ -16,7 +16,9 @@ type Config = Record<string, unknown> & {
 const conf = new MonoUtils.config.Config<Config>();
 
 function setLock(state: boolean) {
-  platform.log('Lock/unlock script: ' + (state ? 'Locked' : 'Unlocked'));
+  if (state !== MonoUtils.wk.lock.getLockState()) {
+    platform.log('Lock/unlock script: ' + (state ? 'Locked' : 'Unlocked'));
+  }
 
   let targets = conf.get("target", ['MONOFLOW_RELAY_1']);
   if (!Array.isArray(targets)) {

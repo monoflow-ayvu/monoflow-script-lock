@@ -20,7 +20,7 @@ function setLock(state: boolean) {
     platform.log('Lock/unlock script: ' + (state ? 'Locked' : 'Unlocked'));
   }
 
-  let targets = conf.get("target", ['MONOFLOW_RELAY_1']);
+  let targets = conf.get("target", []);
   if (!Array.isArray(targets)) {
     targets = [targets];
   }
@@ -40,4 +40,4 @@ messages.on('onInit', function() {
 MonoUtils.wk.event.subscribe<MonoUtils.wk.lock.LockEvent>('lock-request', (ev) => {
   const locked = ev.getData().lock;
   setLock(locked);
-})
+});
